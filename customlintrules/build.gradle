@@ -1,0 +1,53 @@
+apply plugin: 'kotlin'
+apply plugin: 'java-library'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+    test.java.srcDirs += 'src/test/kotlin'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation dep.kotlin
+
+    compileOnly 'com.android.tools.lint:lint-api:26.4.1'
+    compileOnly 'com.android.tools.lint:lint-checks:26.4.1'
+
+    testImplementation 'com.android.tools.lint:lint-tests:26.4.1'
+    testImplementation 'com.android.tools.lint:lint:26.4.1'
+    testImplementation 'com.android.tools:testutils:26.4.1'
+
+    testImplementation dep.junit
+    testImplementation dep.mockito
+    testImplementation dep.assertJ
+}
+
+jar {
+    manifest {
+        attributes 'Lint-Registry': 'com.ccreusot.customlintrules.CustomRulesIssueRegistry'
+        attributes 'Lint-Registry-v2': 'com.ccreusot.customlintrules.CustomRulesIssueRegistry'
+    }
+}
+//
+//task copyLintJar(type: Copy) {
+//    description = 'Copies the lint jar file into the {user.home}/.android/lint folder.'
+//    from('build/libs/')
+//    into(System.getProperty("user.home") + '/.android/lint')
+//    include("*.jar")
+//}
+//
+//task deleteLintJar(type: Delete) {
+//    description = 'Remove the lint jar file from {user.home}/.android/lint'
+//    delete System.getProperty("user.home") + '/.android/lint', 'lintrules.jar'
+//}
+//
+//// Runs the copyLintJar task after build has completed.
+//build.finalizedBy(copyLintJar)
+//
+//clean.finalizedBy(deleteLintJar)
