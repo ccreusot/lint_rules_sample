@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation dep.kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     compileOnly 'com.android.tools.lint:lint-api:26.4.1'
     compileOnly 'com.android.tools.lint:lint-checks:26.4.1'
@@ -23,9 +23,7 @@ dependencies {
     testImplementation 'com.android.tools.lint:lint:26.4.1'
     testImplementation 'com.android.tools:testutils:26.4.1'
 
-    testImplementation dep.junit
-    testImplementation dep.mockito
-    testImplementation dep.assertJ
+    testImplementation 'junit:junit:4.12'
 }
 
 jar {
