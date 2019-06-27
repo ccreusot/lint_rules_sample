@@ -11,24 +11,23 @@ sourceSets {
 
 repositories {
     jcenter()
+    mavenLocal()
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     compileOnly 'com.android.tools.lint:lint-api:26.4.1'
     compileOnly 'com.android.tools.lint:lint-checks:26.4.1'
 
     testImplementation 'com.android.tools.lint:lint-tests:26.4.1'
     testImplementation 'com.android.tools.lint:lint:26.4.1'
     testImplementation 'com.android.tools:testutils:26.4.1'
+    testImplementation "com.google.truth:truth:0.46"
 
     testImplementation 'junit:junit:4.12'
 }
 
 jar {
     manifest {
-        attributes 'Lint-Registry': 'com.ccreusot.customlintrules.CustomRulesIssueRegistry'
         attributes 'Lint-Registry-v2': 'com.ccreusot.customlintrules.CustomRulesIssueRegistry'
     }
 }
