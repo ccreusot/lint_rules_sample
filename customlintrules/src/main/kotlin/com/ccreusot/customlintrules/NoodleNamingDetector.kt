@@ -12,9 +12,9 @@ class NoodleNamingDetector : Detector(), Detector.UastScanner {
 
     companion object {
         val ISSUE = Issue.create(
-            "Noodle Naming",
-            "You need to put Noodle as prefix of your class",
-            "As naming convention we're using Noodle as prefix for naming every class in our project",
+            "\uD83C\uDF5C Naming",
+            "You need to put \uD83C\uDF5C as prefix of your class",
+            "As naming convention we're using \uD83C\uDF5C as prefix for naming every class in our project",
             Category.CORRECTNESS,
             5,
             Severity.ERROR,
@@ -33,7 +33,7 @@ class NoodleNamingDetector : Detector(), Detector.UastScanner {
         return object : UElementHandler() {
             override fun visitClass(node: UClass) {
                 if (!node.name?.startsWith("Noodle", false)!!) {
-                    context.report(ISSUE, context.getNameLocation(node), "Doesn't start with Noodle!!!")
+                    context.report(ISSUE, context.getNameLocation(node), "Doesn't start with \uD83C\uDF5C!!!")
                 }
             }
         }
