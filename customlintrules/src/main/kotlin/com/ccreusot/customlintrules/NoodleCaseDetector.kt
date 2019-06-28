@@ -2,9 +2,11 @@ package com.ccreusot.customlintrules
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
+import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UMethod
 import java.util.*
+import java.util.regex.Pattern
 
 class NoodleCaseDetector : Detector(), Detector.UastScanner {
 
@@ -30,7 +32,18 @@ class NoodleCaseDetector : Detector(), Detector.UastScanner {
 
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
-
+            override fun visitMethod(node: UMethod) {
+                if (!node.isConstructor && !node.isOverride) {
+                    val matcher = Pattern.compile("[a-z]+((\\d)|([O0-9]+[a-np-z0-9]+))*([O])?").matcher(node.name)
+                    if (!matcher.matches()) {
+                        context.report(
+                            ISSUE,
+                            context.getNameLocation(node),
+                            "Doesn't not respect \uD83C\uDF5CCase"
+                        )
+                    }
+                }
+            }
         }
     }
 }
